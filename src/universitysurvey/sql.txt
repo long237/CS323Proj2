@@ -9,12 +9,23 @@ create table Departments (
 --Course table
 create table Courses (
     courseNum int not null,
+    depName varchar(25) not null,
     courseName varchar(25) not null,
     courseUnits int not null,
-    constraint depName_fk foreign key (depName) references Department (depName),
+    constraint depName_fk foreign key (depName) references Departments (depName),
     constraint course_pk primary key (courseNum, depName)
 );
 
 --Section table
+--Figure out how to put in the day
+--time is varchar because of am and pm
 create table Sections (
-    depName 
+    depName varchar(25) not null,
+    courseNum int not null,
+    secNum int not null,
+    startTime varchar(20) not null,
+    endTime varchar(20) not null,
+    meetingDays varchar(20) not null,
+    constraint sectionCourse_fk foreign key (courseNum, depName) references Courses (courseNum, depName),
+    constraint section_pk primary key (depName, courseNum, secNum)
+);
