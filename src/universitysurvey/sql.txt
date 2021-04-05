@@ -71,3 +71,14 @@ create table TeamMember(
     constraint teamStudentID_fk foreign key (studentID) references Students (studentID),
     constraint teamMember_pk primary key (studentID, teamName, secNum, depName, courseNum)
 );
+
+--Dimension table
+--dimension are questions that will be ask on the survey
+create table Dimension (
+    diName varchar(25) not null,
+    secNum int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    constraint dimension_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
+    constraint dimension_pk primary key (diName, secNum, courseNum, depName)
+);
