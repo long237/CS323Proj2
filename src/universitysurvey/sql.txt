@@ -46,6 +46,17 @@ create table Enrollment(
     courseNum int not null,
     secNum int not null,
     constraint enrollmentSec_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
-    constraint enrollmentStudent_fk foreign key (studentID) references Students (studentID)
+    constraint enrollmentStudent_fk foreign key (studentID) references Students (studentID),
     constraint enrollment_pk primary key (studentID, depName, courseNum, secNum)
 );
+
+--Team table
+create table Team(
+    teamName varchar(25) not null,
+    secNum int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    constraint team_fk foreign key (secNum, depName, courseNum) references Sections (secNum, depName, courseNum),
+    constraint team_pk primary key (teamName, secNum, depName, courseNum)
+);
+
