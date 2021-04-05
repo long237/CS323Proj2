@@ -60,3 +60,14 @@ create table Team(
     constraint team_pk primary key (teamName, secNum, depName, courseNum)
 );
 
+--Team Member table
+create table TeamMember(
+    studentID int not null,
+    teamName varchar(25) not null,
+    secNum int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    constraint teamMember_fk foreign key (teamName, secNum, depName, courseNum) references Team (teamName, secNum, depName, courseNum),
+    constraint teamStudentID_fk foreign key (studentID) references Students (studentID),
+    constraint teamMember_pk primary key (studentID, teamName, secNum, depName, courseNum)
+);
