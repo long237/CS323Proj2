@@ -1,0 +1,20 @@
+--Creating tables
+
+--Department table
+create table Departments (
+    depName varchar(25) not null,
+    constraint depName_pk primary key (depName)
+);
+
+--Course table
+create table Courses (
+    courseNum int not null,
+    courseName varchar(25) not null,
+    courseUnits int not null,
+    constraint depName_fk foreign key (depName) references Department (depName),
+    constraint course_pk primary key (courseNum, depName)
+);
+
+--Section table
+create table Sections (
+    depName 
