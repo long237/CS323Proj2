@@ -29,3 +29,23 @@ create table Sections (
     constraint sectionCourse_fk foreign key (courseNum, depName) references Courses (courseNum, depName),
     constraint section_pk primary key (depName, courseNum, secNum)
 );
+
+--Student table
+create table Students (
+    studentID int not null,
+    firstName varchar(25) not null,
+    lastName varchar(25) not null,
+    email varchar(50) not null,
+    constraint student_pk primary key (studentID)
+);
+
+--Enrollment table
+create table Enrollment( 
+    studentID int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    secNum int not null,
+    constraint enrollmentSec_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
+    constraint enrollmentStudent_fk foreign key (studentID) references Students (studentID)
+    constraint enrollment_pk primary key (studentID, depName, courseNum, secNum)
+);
