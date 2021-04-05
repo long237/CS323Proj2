@@ -82,3 +82,31 @@ create table Dimension (
     constraint dimension_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
     constraint dimension_pk primary key (diName, secNum, courseNum, depName)
 );
+
+--Survey table
+--rating target is the student ID of the student that is being rated
+create table Surveys (
+    ratingTarget int not null,
+    studentID int not null,
+    teamName varchar(25) not null,
+    secNum int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    constraint survey_fk foreign key (studentID, teamName, secNum, depName, courseNum) references TeamMember (studentID, teamName, secNum, depName, courseNum),
+    constraint survey_pk primary key (ratingTarget, studentID, teamName, secNum, depName, courseNum)
+);
+
+--SuveryRating table
+create table SurveyRating (
+    ratingTarget int not null,
+    studentID int not null,
+    teamName varchar(25) not null,
+    secNum int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    diName varchar(25) not null,
+    rating int not null,
+    constraint surveyRating_fk foreign key (ratingTarget, studentID, teamName, secNum, depName, courseNum) references Surveys (ratingTarget, studentID, teamName, secNum, depName, courseNum),
+    constraint surveyRatingDi_fk foreign key (diName, secNum, courseNum, depName) references Dimension (diName, secNum, courseNum, depName),
+    constraint surveyRating_pk primary key (diName, ratingTarget, studentID, teamName, secNum, depName, courseNum)
+);
