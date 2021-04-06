@@ -1,5 +1,5 @@
 nbproject/
 *.xml
 *.mf
-.vs/
+/.vs/
 /build/
