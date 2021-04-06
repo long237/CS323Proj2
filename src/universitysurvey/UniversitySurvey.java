@@ -20,6 +20,16 @@ public class UniversitySurvey {
     static String DB_URL = "jdbc:derby://localhost:1527/";
     public static void main(String[] args) {
 
+
+        // Building String for connection
+        DB_URL = DB_URL + DBNAME + ";user=" + USER + ";password=" + PASS;
+        Connection conn = null; // initialize the connection
+        Statement stmt = null; // initialize the statement that we're using
+
+
+         //Prompt the user for the database name, and the credentials.
+        //If your database has no credentials, you can update this code to
+        //remove that from the connection string.
         Scanner in = new Scanner(System.in);
         System.out.print("Name of the database (not the user account): ");
         DBNAME = in.nextLine();
@@ -27,13 +37,47 @@ public class UniversitySurvey {
         USER = in.nextLine();
         System.out.print("Database password: ");
         PASS = in.nextLine();
+        //Constructing the database URL connection string
+        DB_URL = DB_URL + DBNAME + ";user="+ USER + ";password=" + PASS;
+        System.out.println(); 
+        boolean runAgain = true;
+      
+        while (runAgain) { //Menu keeps running until the user chooses to quit 
+            int choice = -1; 
+            while (choice < 0 || choice > 10) { //Input validation for menu choices
+                System.out.println();
+                System.out.println("**********************************************************************");
+                printMenu(); 
+                choice = in.nextInt();
+            }
+           
+            switch(choice){
+                case 1: 
+                    listWritingGroups(); 
+                    break;
 
-
-        // Building String for connection
-        DB_URL = DB_URL + DBNAME + ";user=" + USER + ";password=" + PASS;
-        Connection conn = null; // initialize the connection
-        Statement stmt = null; // initialize the statement that we're using
-
+                case 2: 
+                    listGroupData();
+                    break;
+                    
+                case 3: 
+                    listPublishers();
+                    break; 
+                    
+                case 4: 
+                    listPublisherData();
+                    break; 
+                    
+                case 5:
+                    listBookTitles();
+                    break;
+                            
+                case 6:
+                    listBookData();
+                    break; 
+                    
+               
+            }
         try{
         // STEP 2: Register JDBC driver
         Class.forName("org.apache.derby.jdbc.ClientDriver");
