@@ -40,13 +40,16 @@ create table Students (
 );
 
 --Enrollment table
+--Colliding foreign key for enrollmentTeam_fk and enrollmentSec_fk
 create table Enrollment( 
     studentID int not null,
     depName varchar(25) not null,
     courseNum int not null,
     secNum int not null,
+    teamName varchar(25) not null,
     constraint enrollmentSec_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
     constraint enrollmentStudent_fk foreign key (studentID) references Students (studentID),
+    constraint enrollmentTeam_fk foreign key (teamName, secNum, depName, courseNum) references Team (teamName, secNum, depName, courseNum),
     constraint enrollment_pk primary key (studentID, depName, courseNum, secNum)
 );
 
@@ -56,20 +59,8 @@ create table Team(
     secNum int not null,
     depName varchar(25) not null,
     courseNum int not null,
-    constraint team_fk foreign key (secNum, depName, courseNum) references Sections (secNum, depName, courseNum),
+    constraint team_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
     constraint team_pk primary key (teamName, secNum, depName, courseNum)
-);
-
---Team Member table
-create table TeamMember(
-    studentID int not null,
-    teamName varchar(25) not null,
-    secNum int not null,
-    depName varchar(25) not null,
-    courseNum int not null,
-    constraint teamMember_fk foreign key (teamName, secNum, depName, courseNum) references Team (teamName, secNum, depName, courseNum),
-    constraint teamStudentID_fk foreign key (studentID) references Students (studentID),
-    constraint teamMember_pk primary key (studentID, teamName, secNum, depName, courseNum)
 );
 
 --Dimension table
@@ -83,30 +74,19 @@ create table Dimension (
     constraint dimension_pk primary key (diName, secNum, courseNum, depName)
 );
 
---Survey table
---rating target is the student ID of the student that is being rated
-create table Surveys (
-    ratingTarget int not null,
-    studentID int not null,
-    teamName varchar(25) not null,
-    secNum int not null,
-    depName varchar(25) not null,
-    courseNum int not null,
-    constraint survey_fk foreign key (studentID, teamName, secNum, depName, courseNum) references TeamMember (studentID, teamName, secNum, depName, courseNum),
-    constraint survey_pk primary key (ratingTarget, studentID, teamName, secNum, depName, courseNum)
-);
 
 --SuveryRating table
+--Collision foreign keys between the target and the student doing the survey 
 create table SurveyRating (
     ratingTarget int not null,
     studentID int not null,
-    teamName varchar(25) not null,
     secNum int not null,
     depName varchar(25) not null,
     courseNum int not null,
     diName varchar(25) not null,
     rating int not null,
-    constraint surveyRating_fk foreign key (ratingTarget, studentID, teamName, secNum, depName, courseNum) references Surveys (ratingTarget, studentID, teamName, secNum, depName, courseNum),
     constraint surveyRatingDi_fk foreign key (diName, secNum, courseNum, depName) references Dimension (diName, secNum, courseNum, depName),
-    constraint surveyRating_pk primary key (diName, ratingTarget, studentID, teamName, secNum, depName, courseNum)
+    constraint surveyRatingTarget_fk foreign key (ratingTarget, depName, courseNum, secNum) references Enrollment (studentID, depName, courseNum, secNum),
+    constraint surveyRatingStu_fk foreign key (studentID, depName, courseNum, secNum) references Enrollment (studentID, depName, courseNum, secNum),
+    constraint surveyRating_pk primary key (diName, ratingTarget, studentID, secNum, depName, courseNum)
 );
