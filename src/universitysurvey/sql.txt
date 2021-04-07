@@ -118,3 +118,8 @@ insert into Students (studentID, firstName, lastName, Email) values
 (22, 'Teostra', 'Smith', 'Teostra@gmail.com'),
 (23, 'Lunastra', 'Snow', 'Lunastra@gmail.com'),
 (24, 'Fatalis', 'Dow', 'Fatalis@gmail.com');
+
+--Insert into sections
+insert into Sections (coursenum, depname, secnum, instructor, starttime, endtime, meetingdays) values
+(323, 'CECS', 8, 'Mimi Opkins', '17:30', '19:00', 'MW'),
+(328, 'CECS', 2, 'Pouye', '18:00', '20:00', 'TTh');
