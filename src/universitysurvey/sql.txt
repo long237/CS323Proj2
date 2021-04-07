@@ -90,3 +90,6 @@ create table SurveyRating (
     constraint surveyRatingStu_fk foreign key (studentID, depName, courseNum, secNum) references Enrollment (studentID, depName, courseNum, secNum),
     constraint surveyRating_pk primary key (diName, ratingTarget, studentID, secNum, depName, courseNum)
 );
+
+ALTER TABLE Enrollment
+ADD grade varchar(3);
