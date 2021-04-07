@@ -105,18 +105,26 @@ public class UniversitySurvey {
         return input;
     }
 
-    public static void listAllStudents(Connection conn){
-//        catch (SQLException se)
-//        {
-//        //Replace w/ comment     
-//            se.printStackTrace();
-//        }
-//        
-//        catch (Exception e)
-//        {
-//           //Replace w/ comment 
-//            e.printStackTrace();
-//        }
+    public static ResultSet listAllStudents(Connection conn){
+        try{
+            String sql = "SELECT * FROM enrollment";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            return rs;
+        }
+        catch (SQLException se)
+        {
+        //Replace w/ comment     
+            se.printStackTrace();
+            return null;
+        }
+        
+        catch (Exception e)
+        {
+           //Replace w/ comment 
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static void listStudentScore(Connection conn){

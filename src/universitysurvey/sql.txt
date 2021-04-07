@@ -124,14 +124,24 @@ insert into Sections (coursenum, depname, secnum, instructor, starttime, endtime
 (323, 'CECS', 8, 'Mimi Opkins', '17:30', '19:00', 'MW'),
 (328, 'CECS', 2, 'Pouye', '18:00', '20:00', 'TTh');
 
+insert into Sections (coursenum, depname, secnum, instructor, starttime, endtime, meetingdays) values
+(152, 'Physics', 7, 'Gintoki Sakata', '9:00', '11:00', 'MW');
+
 --Insert into team
 insert into Team (teamname, secnum, depname, coursenum) values
 ('JavaBeans', 8, 'CECS', 323),
 ('Dolphins', 8, 'CECS', 323),
 ('Shark', 2, 'CECS', 328);
 
+insert into Team (teamname, secnum, depname, coursenum) values
+('ShrodingerCat', 7, 'Physics', 152);
+
 --Insert into enrollment
 insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) values
 (22, 'CECS', 323, 8, 'A', 'Dolphins'),
 (24, 'CECS', 323, 8, 'B', 'JavaBeans'),
 (23, 'CECS', 328, 2, 'A', 'Shark');
+
+--Testing SQL for functions
+--Listing all team members for each team
+SELECT * FROM enrollment order by depname, coursenum, secnum, teamname;
