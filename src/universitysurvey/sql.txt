@@ -97,6 +97,9 @@ ADD grade varchar(3);
 ALTER TABLE Courses
 ADD courseDes varchar(100);
 
+ALTER TABLE Sections
+ADD instructor varchar(100);
+
 --Insert value into Departments
 insert into departments (depname) values
 ('CECS'),
@@ -109,3 +112,9 @@ insert into Courses (coursenum, depname, coursename, courseunits, coursedes) val
 (328, 'CECS', 'Algorithm', 3, 'Basic of algorithms such as sorting, Dijktra, BFS, DFS and so on'),
 (151, 'Physics', 'Netownian Physics', 4, 'Speed, velocity, momentum, kinetic energy and more'),
 (152, 'Physics', 'Electricity & Magnetism', 4, 'fundametals of electric and magnetic field and circuits');
+
+--Insert into Students
+insert into Students (studentID, firstName, lastName, Email) values
+(22, 'Teostra', 'Smith', 'Teostra@gmail.com'),
+(23, 'Lunastra', 'Snow', 'Lunastra@gmail.com'),
+(24, 'Fatalis', 'Dow', 'Fatalis@gmail.com');
