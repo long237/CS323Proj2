@@ -39,6 +39,16 @@ create table Students (
     constraint student_pk primary key (studentID)
 );
 
+--Team table
+create table Team(
+    teamName varchar(25) not null,
+    secNum int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    constraint team_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
+    constraint team_pk primary key (teamName, secNum, depName, courseNum)
+);
+
 --Enrollment table
 --Colliding foreign key for enrollmentTeam_fk and enrollmentSec_fk
 create table Enrollment( 
@@ -51,16 +61,6 @@ create table Enrollment(
     constraint enrollmentStudent_fk foreign key (studentID) references Students (studentID),
     constraint enrollmentTeam_fk foreign key (teamName, secNum, depName, courseNum) references Team (teamName, secNum, depName, courseNum),
     constraint enrollment_pk primary key (studentID, depName, courseNum, secNum)
-);
-
---Team table
-create table Team(
-    teamName varchar(25) not null,
-    secNum int not null,
-    depName varchar(25) not null,
-    courseNum int not null,
-    constraint team_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
-    constraint team_pk primary key (teamName, secNum, depName, courseNum)
 );
 
 --Dimension table
