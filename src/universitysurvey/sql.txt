@@ -93,3 +93,19 @@ create table SurveyRating (
 
 ALTER TABLE Enrollment
 ADD grade varchar(3);
+
+ALTER TABLE Courses
+ADD courseDes varchar(100);
+
+--Insert value into Departments
+insert into departments (depname) values
+('CECS'),
+('Physics'),
+('Business');
+
+--Insert value into Courses
+insert into Courses (coursenum, depname, coursename, courseunits, coursedes) values
+(323, 'CECS', 'Database', 3, 'Database fundamentals using Derby database and mySQL'),
+(328, 'CECS', 'Algorithm', 3, 'Basic of algorithms such as sorting, Dijktra, BFS, DFS and so on'),
+(151, 'Physics', 'Netownian Physics', 4, 'Speed, velocity, momentum, kinetic energy and more'),
+(152, 'Physics', 'Electricity & Magnetism', 4, 'fundametals of electric and magnetic field and circuits');
