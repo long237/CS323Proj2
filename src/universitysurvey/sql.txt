@@ -123,3 +123,15 @@ insert into Students (studentID, firstName, lastName, Email) values
 insert into Sections (coursenum, depname, secnum, instructor, starttime, endtime, meetingdays) values
 (323, 'CECS', 8, 'Mimi Opkins', '17:30', '19:00', 'MW'),
 (328, 'CECS', 2, 'Pouye', '18:00', '20:00', 'TTh');
+
+--Insert into team
+insert into Team (teamname, secnum, depname, coursenum) values
+('JavaBeans', 8, 'CECS', 323),
+('Dolphins', 8, 'CECS', 323),
+('Shark', 2, 'CECS', 328);
+
+--Insert into enrollment
+insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) values
+(22, 'CECS', 323, 8, 'A', 'Dolphins'),
+(24, 'CECS', 323, 8, 'B', 'JavaBeans'),
+(23, 'CECS', 328, 2, 'A', 'Shark');
