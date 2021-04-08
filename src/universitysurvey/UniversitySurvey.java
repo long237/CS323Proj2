@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.sql.*;
+import universitysurvey.UniUI;
 
 public class UniversitySurvey {
 
@@ -41,7 +42,12 @@ public class UniversitySurvey {
             
             System.out.println(); 
             boolean runAgain = true;
-
+            
+            //Create a UI object to print out tables:
+            UniUI uniUI = new UniUI();
+            
+            //Testing Listing all team members: 
+            ResultSet rs = listTeamMembers(conn);
 //            while (runAgain) { //Menu keeps running until the user chooses to quit 
 //                int choice = -1; 
 //                while (choice < 0 || choice > 10) { //Input validation for menu choices
@@ -105,9 +111,9 @@ public class UniversitySurvey {
         return input;
     }
 
-    public static ResultSet listAllStudents(Connection conn){
+    public static ResultSet listTeamMembers(Connection conn){
         try{
-            String sql = "SELECT * FROM enrollment";
+            String sql = "SELECT * FROM enrollment order by coursenum, secnum, teamname;";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             return rs;
