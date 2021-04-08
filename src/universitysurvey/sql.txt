@@ -145,3 +145,12 @@ insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) 
 --Testing SQL for functions
 --Listing all team members for each team
 SELECT * FROM enrollment order by depname, coursenum, secnum, teamname;
+
+-- For each team, list the department name, the course name, the course units, the section number, the team name (Query 5 on doc)
+SELECT teamName as "Team Name", depName as "Department Name", courseName as "Course Name", courseUnits as "Course Units", secNum as "Section Name"
+FROM team natural join courses;
+
+-- For each team, report the department name, the course number, the section number, the team name, and the number of students in the team. (Query 6 on doc)
+select t.teamName as "Team Name", t.depName as "Department Name", t.courseNum as "Course Number", t.secNum as "Section Number", e.cnt as "Number of Students"
+from Team t inner join (select teamName, count(teamName) as cnt from enrollment group by teamName) e on t.teamName = e.teamName
+order by t.depName, t.courseNum, t.secNum, t.teamName; 
