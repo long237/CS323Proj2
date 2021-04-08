@@ -39,16 +39,6 @@ create table Students (
     constraint student_pk primary key (studentID)
 );
 
---Team table
-create table Team(
-    teamName varchar(25) not null,
-    secNum int not null,
-    depName varchar(25) not null,
-    courseNum int not null,
-    constraint team_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
-    constraint team_pk primary key (teamName, secNum, depName, courseNum)
-);
-
 --Enrollment table
 --Colliding foreign key for enrollmentTeam_fk and enrollmentSec_fk
 create table Enrollment( 
@@ -61,6 +51,16 @@ create table Enrollment(
     constraint enrollmentStudent_fk foreign key (studentID) references Students (studentID),
     constraint enrollmentTeam_fk foreign key (teamName, secNum, depName, courseNum) references Team (teamName, secNum, depName, courseNum),
     constraint enrollment_pk primary key (studentID, depName, courseNum, secNum)
+);
+
+--Team table
+create table Team(
+    teamName varchar(25) not null,
+    secNum int not null,
+    depName varchar(25) not null,
+    courseNum int not null,
+    constraint team_fk foreign key (depName, courseNum, secNum) references Sections (depName, courseNum, secNum),
+    constraint team_pk primary key (teamName, secNum, depName, courseNum)
 );
 
 --Dimension table
@@ -93,3 +93,55 @@ create table SurveyRating (
 
 ALTER TABLE Enrollment
 ADD grade varchar(3);
+
+ALTER TABLE Courses
+ADD courseDes varchar(100);
+
+ALTER TABLE Sections
+ADD instructor varchar(100);
+
+--Insert value into Departments
+insert into departments (depname) values
+('CECS'),
+('Physics'),
+('Business');
+
+--Insert value into Courses
+insert into Courses (coursenum, depname, coursename, courseunits, coursedes) values
+(323, 'CECS', 'Database', 3, 'Database fundamentals using Derby database and mySQL'),
+(328, 'CECS', 'Algorithm', 3, 'Basic of algorithms such as sorting, Dijktra, BFS, DFS and so on'),
+(151, 'Physics', 'Netownian Physics', 4, 'Speed, velocity, momentum, kinetic energy and more'),
+(152, 'Physics', 'Electricity & Magnetism', 4, 'fundametals of electric and magnetic field and circuits');
+
+--Insert into Students
+insert into Students (studentID, firstName, lastName, Email) values
+(22, 'Teostra', 'Smith', 'Teostra@gmail.com'),
+(23, 'Lunastra', 'Snow', 'Lunastra@gmail.com'),
+(24, 'Fatalis', 'Dow', 'Fatalis@gmail.com');
+
+--Insert into sections
+insert into Sections (coursenum, depname, secnum, instructor, starttime, endtime, meetingdays) values
+(323, 'CECS', 8, 'Mimi Opkins', '17:30', '19:00', 'MW'),
+(328, 'CECS', 2, 'Pouye', '18:00', '20:00', 'TTh');
+
+insert into Sections (coursenum, depname, secnum, instructor, starttime, endtime, meetingdays) values
+(152, 'Physics', 7, 'Gintoki Sakata', '9:00', '11:00', 'MW');
+
+--Insert into team
+insert into Team (teamname, secnum, depname, coursenum) values
+('JavaBeans', 8, 'CECS', 323),
+('Dolphins', 8, 'CECS', 323),
+('Shark', 2, 'CECS', 328);
+
+insert into Team (teamname, secnum, depname, coursenum) values
+('ShrodingerCat', 7, 'Physics', 152);
+
+--Insert into enrollment
+insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) values
+(22, 'CECS', 323, 8, 'A', 'Dolphins'),
+(24, 'CECS', 323, 8, 'B', 'JavaBeans'),
+(23, 'CECS', 328, 2, 'A', 'Shark');
+
+--Testing SQL for functions
+--Listing all team members for each team
+SELECT * FROM enrollment order by depname, coursenum, secnum, teamname;
