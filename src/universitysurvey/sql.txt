@@ -142,6 +142,183 @@ insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) 
 (24, 'CECS', 323, 8, 'B', 'JavaBeans'),
 (23, 'CECS', 328, 2, 'A', 'Shark');
 
+--insert into Students
+insert into Students (studentID, firstName, lastName, Email) values
+(25, 'Fatalis', 'Do', 'alis@gmail.com'),
+(26, 'Fatalis', 'Do', 'vganesh@optonline.net'),
+(27, 'Gerard', 'Sandoval', 'storerm@mac.com’),
+(28, 'Latoya', 'Rogers', 'dwheeler@msn.com'),
+
+(29, 'Mabel', 'Duncan', 'mahbub@mac.com'),
+(30, 'Woodrow', 'Price', 'jaesenj@msn.com'),
+(31, 'Courtney', 'Johnston', 'froodian@yahoo.ca'),
+(32, 'John', 'Banks', 'granboul@live.com'),
+
+(33, 'Bob', 'Do', 'drjlaw@optonline.net'),
+(34, 'Rob', 'Hope', 'keiji@outlook.com'),
+(35, 'Tran', ‘Tram', 'xtang@att.net'),
+(36, 'Fat', 'Dom', 'jhardin@hotmail.com');
+
+
+--insert into Enrollment
+insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) values
+(25, 'Physics', 152,7, 'B', 'ShrodingerCat' ),
+(26, 'Physics', 152, 7,'A', 'ShrodingerCat'),
+(27, 'Physics', 152, 7, 'C', 'ShrodingerCat'),
+(28, 'Physics', 152, 7, 'B', 'ShrodingerCat'),
+
+
+(29,  'CECS',323, 8, 'B', 'Dolphins'),
+
+(30,  'CECS',323,8,'B', 'JavaBeans'),
+(31, 'CECS',323,8,'B', 'JavaBeans'),
+(32,  'CECS',323, 8, 'B', 'JavaBeans'),
+(33,  'CECS',323, 8,'D', 'JavaBeans'),
+(34,  'CECS',323, 8,'A', 'JavaBeans');
+
+--Insert into Dimension
+insert into Dimension(diName,secNum,depName,courseNum) values
+('Trustworthiness', 2, 'CECS',328),
+('Contribution', 2, 'CECS',328),
+('Meeting Punctuality', 2, 'CECS',328),
+
+('Trustworthiness', 8, 'CECS',323),
+('Contribution', 8, 'CECS',323),
+('Meeting Punctuality', 8, 'CECS',323),
+
+('Trustworthiness', 7, 'Physics',152),
+('Contribution', 7, 'Physics',152),
+('Meeting Punctuality', 7, 'Physics',152);
+
+--insert into SurveyRating
+insert into SurveyRating(ratingTarget, studentID, secNum, depName, courseNum, diName, rating) values
+--ID  24 being rated
+(24, 30, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(24, 30, 8 , 'CECS', 323, 'Contribution', 2),
+(24, 30, 8 , 'CECS', 323, 'Meeting Punctuality', 1),
+
+(24, 31, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(24, 31, 8 , 'CECS', 323, 'Contribution', 5),
+(24, 31, 8 , 'CECS', 323, 'Meeting Punctuality', 3),
+
+
+(24, 32, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(24, 32, 8 , 'CECS', 323, 'Contribution', 4),
+(24, 32, 8 , 'CECS', 323, 'Meeting Punctuality', 1),
+
+(24, 33, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(24, 33, 8 , 'CECS', 323, 'Contribution', 3),
+(24, 33, 8 , 'CECS', 323, 'Meeting Punctuality', 1),
+
+(24, 34, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(24, 34, 8 , 'CECS', 323, 'Contribution', 4),
+(24, 34, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+--30 being rated
+(30, 24, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(30, 24, 8 , 'CECS', 323, 'Contribution', 5),
+(30, 24, 8 , 'CECS', 323, 'Meeting Punctuality', 2),
+
+(30, 31, 8 , 'CECS', 323, 'Trustworthiness', 4),
+(30, 31, 8 , 'CECS', 323, 'Contribution', 2),
+(30, 31, 8 , 'CECS', 323, 'Meeting Punctuality', 1),
+
+(30, 32, 8 , 'CECS', 323, 'Trustworthiness', 4),
+(30, 32, 8 , 'CECS', 323, 'Contribution', 5),
+(30, 32, 8 , 'CECS', 323, 'Meeting Punctuality', 3),
+
+(30, 33, 8 , 'CECS', 323, 'Trustworthiness', 5),
+(30, 33, 8 , 'CECS', 323, 'Contribution', 1),
+(30, 33, 8 , 'CECS', 323, 'Meeting Punctuality', 2),
+
+(30, 34, 8 , 'CECS', 323, 'Trustworthiness', 4),
+(30, 34, 8 , 'CECS', 323, 'Contribution', 5),
+(30, 34, 8 , 'CECS', 323, 'Meeting Punctuality', 3),
+
+--31 being rated
+(31, 30, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(31, 30, 8 , 'CECS', 323, 'Contribution', 1),
+(31, 30, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+(31, 24, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(31, 24, 8 , 'CECS', 323, 'Contribution', 1),
+(31, 24, 8 , 'CECS', 323, 'Meeting Punctuality', 4),
+
+(31, 32, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(31, 32, 8 , 'CECS', 323, 'Contribution', 4),
+(31, 32, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+(31, 33, 8 , 'CECS', 323, 'Trustworthiness', 1),
+(31, 33, 8 , 'CECS', 323, 'Contribution', 3),
+(31, 33, 8 , 'CECS', 323, 'Meeting Punctuality', 2),
+
+(31, 34, 8 , 'CECS', 323, 'Trustworthiness', 5),
+(31, 34, 8 , 'CECS', 323, 'Contribution', 4),
+(31,34, 8 , 'CECS', 323, 'Meeting Punctuality', 2),
+
+--32 being rated
+(32, 30, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(32, 30, 8 , 'CECS', 323, 'Contribution', 5),
+(32, 30, 8 , 'CECS', 323, 'Meeting Punctuality', 4),
+
+(32, 31, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(32, 31, 8 , 'CECS', 323, 'Contribution', 1),
+(32, 31, 8 , 'CECS', 323, 'Meeting Punctuality', 3),
+
+(32, 24, 8 , 'CECS', 323, 'Trustworthiness', 1),
+(32, 24, 8 , 'CECS', 323, 'Contribution', 2),
+(32, 24, 8 , 'CECS', 323, 'Meeting Punctuality', 4),
+
+(32, 33, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(32, 33, 8 , 'CECS', 323, 'Contribution', 5),
+(32, 33, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+(32, 34, 8 , 'CECS', 323, 'Trustworthiness', 4),
+(32, 34, 8 , 'CECS', 323, 'Contribution', 5),
+(32, 34, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+--33 being rated
+(33, 30, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(33, 30, 8 , 'CECS', 323, 'Contribution', 5),
+(33, 30, 8 , 'CECS', 323, 'Meeting Punctuality', 3),
+
+(33, 31, 8 , 'CECS', 323, 'Trustworthiness', 5),
+(33, 31, 8 , 'CECS', 323, 'Contribution', 2),
+(33, 31, 8 , 'CECS', 323, 'Meeting Punctuality', 1),
+
+(33, 24, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(33, 24, 8 , 'CECS', 323, 'Contribution', 4),
+(33, 24, 8 , 'CECS', 323, 'Meeting Punctuality', 1),
+
+(33, 32, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(33, 32, 8 , 'CECS', 323, 'Contribution', 3),
+(33, 32, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+(33, 34, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(33, 34, 8 , 'CECS', 323, 'Contribution', 2),
+(33, 34, 8 , 'CECS', 323, 'Meeting Punctuality', 3),
+
+--34 being rated
+(34, 30, 8 , 'CECS', 323, 'Trustworthiness', 5),
+(34, 30, 8 , 'CECS', 323, 'Contribution', 4),
+(34, 30, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+(34, 31, 8 , 'CECS', 323, 'Trustworthiness', 3),
+(34, 31, 8 , 'CECS', 323, 'Contribution', 3),
+(34, 31, 8 , 'CECS', 323, 'Meeting Punctuality', 4),
+
+(34, 24, 8 , 'CECS', 323, 'Trustworthiness', 4),
+(34, 24, 8 , 'CECS', 323, 'Contribution', 5),
+(34, 24, 8 , 'CECS', 323, 'Meeting Punctuality', 5),
+
+(34, 32, 8 , 'CECS', 323, 'Trustworthiness', 5),
+(34, 32, 8 , 'CECS', 323, 'Contribution', 3),
+(34, 32, 8 , 'CECS', 323, 'Meeting Punctuality', 4),
+
+(34, 33, 8 , 'CECS', 323, 'Trustworthiness', 2),
+(34, 33, 8 , 'CECS', 323, 'Contribution', 5),
+(34, 33, 8 , 'CECS', 323, 'Meeting Punctuality', 3);
+
 --Testing SQL for functions
 --Listing all team members for each team
 SELECT * FROM enrollment order by depname, coursenum, secnum, teamname;
