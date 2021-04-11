@@ -130,7 +130,21 @@ insert into Students (studentID, firstName, lastName, Email) values
 (33, 'Bob', 'Do', 'drjlaw@optonline.net'),
 (34, 'Rob', 'Hope', 'keiji@outlook.com'),
 (35, 'Tran', 'Tram', 'xtang@att.net'),
-(36, 'Fat', 'Dom', 'jhardin@hotmail.com');
+(36, 'Fat', 'Dom', 'jhardin@hotmail.com'),
+(37, 'Geralt', 'Rivia', 'geraltR@gmail.com'),
+(38, 'Katsura', 'Kotaro', 'katsura@gmail.com'),
+(39, 'Kamado', 'Tanjiro', 'kamado@gmail.com'),
+(40, 'Nova', 'Starcraft', 'nova@gmail.com'),
+(41, 'Jim', 'Raynor', 'jimR@gmail.com'),
+(42, 'Kerrigan', 'Starcraft', 'kerrigan@gmail.com'),
+(43, 'Sanji', 'Vinsmoke', 'sanji@gmail.com'),
+(44, 'Robin', 'Nico', 'robinN@gmail.com'),
+(45, 'Zoro', 'Onepiece', 'ZoroO@gmail.com'),
+(46, 'Nami', 'Onepiece', 'namiO@gmail.com'),
+(47, 'Roger', 'Gold', 'goldR@gmail.com'),
+(48, 'Luffy', 'Monkey', 'luffyM@gmail.com'),
+(49, 'Edward', 'Newgate', 'edwardN@gmail.com'),
+(50, 'Mihawk', 'Dracule', 'mihawkD@gmail.com');
 
 --Insert into Sections
 insert into Sections (coursenum, depname, secnum, instructor, starttime, endtime, meetingdays) values
@@ -147,7 +161,12 @@ insert into Team (teamname, secnum, depname, coursenum) values
 ('Shark', 2, 'CECS', 328),
 ('Swordfish', 3, 'CECS', 328),
 ('ShrodingerCat', 7, 'Physics', 152),
-('SayWattNow', 2, 'Physics', 152);
+('SayWattNow', 2, 'Physics', 152),
+('Elephant', 8, 'CECS', 323),
+('Lion', 8, 'CECS', 323),
+('Falcon', 8, 'CECS', 323),
+('Whale', 8, 'CECS', 323),
+('Cheetah', 8, 'CECS', 323);
 
 --Insert into Enrollment
 insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) values
@@ -177,7 +196,29 @@ insert into Enrollment (studentID, depName, courseNum, secNum, grade, teamname) 
 
 (30, 'Physics',152,2,'B', 'SayWattNow'),
 (31, 'Physics',152,2,'C', 'SayWattNow'),
-(32, 'Physics',152, 2, 'B', 'SayWattNow');
+(32, 'Physics',152, 2, 'B', 'SayWattNow'),
+
+--Team Lion
+(37, 'CECS',323,8,'A', 'Lion'),
+(38, 'CECS',323,8,'B', 'Lion'),
+(39, 'CECS',323,8,'A', 'Lion'),
+(41, 'CECS',323,8,'A', 'Lion'),
+(42, 'CECS',323,8,'A', 'Lion'),
+
+--Team Falcon
+(40, 'CECS',323,8,'A', 'Falcon'),
+
+--Team Elephant
+
+--Team Whale
+(43, 'CECS',323,8,'A', 'Whale'),
+(44, 'CECS',323,8,'B', 'Whale'),
+(45, 'CECS',323,8,'A', 'Whale'),
+(46, 'CECS',323,8,'B', 'Whale'),
+(47, 'CECS',323,8,'B', 'Whale'),
+(48, 'CECS',323,8,'A', 'Whale'),
+(49, 'CECS',323,8,'B', 'Whale'),
+(50, 'CECS',323,8,'A', 'Whale');
 
 --Insert into Dimension
 insert into Dimension(diName,secNum,depName,courseNum) values
@@ -520,9 +561,6 @@ FROM surveyRating
     	INNER JOIN Enrollment ON Enrollment.STUDENTID=Students.STUDENTID
 GROUP BY Students.STUDENTID, Students.FIRSTNAME, Students.LASTNAME, Enrollment.TEAMNAME;
 
--- Query 3: Produce a report that shows all the teams whose number of students is > 2
--- higher or lower than the average number of students in the teams within that particular section.
-
 
 -- Query 4: Report the average value that the student received from their peers for each rating dimension within a given course section.  
 -- Order by department, course number, student last name, student first name, and dimension text.
@@ -541,3 +579,46 @@ FROM team natural join courses;
 select t.teamName as "Team Name", t.depName as "Department Name", t.courseNum as "Course Number", t.secNum as "Section Number", e.cnt as "Number of Students"
 from Team t inner join (select teamName, count(teamName) as cnt from enrollment group by teamName) e on t.teamName = e.teamName
 order by t.depName, t.courseNum, t.secNum, t.teamName;
+
+
+-- Query 3: Produce a report that shows all the teams whose number of students is > 2
+-- higher or lower than the average number of students in the teams within that particular section.
+--Count all the team member within 1 team per section
+select teamname, secnum, count(teamname) as "numMembers" from enrollment
+group by teamname, secnum;
+
+select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
+group by teamname, secnum, coursenum;
+
+--calculate the average number of team members CS323 sec 08 avg = 4
+select coursenum, secnum, avg("numMembers") as "MemAverage"
+from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
+group by teamname, secnum, coursenum) "MemCount"
+group by coursenum, secnum;
+
+--display students with in 2 team members of average
+select distinct teamname, "numMembers".secnum, "numMembers".coursenum from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
+group by teamname, secnum, coursenum) "MemCount", 
+(select coursenum, secnum, avg("numMembers") as "MemAverage"
+from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
+group by teamname, secnum, coursenum) "MemCount"
+group by coursenum, secnum) "AverageTable"
+where 
+--More than average by 2
+("MemCount".secnum = "AverageTable".secnum 
+and
+"numMembers" < "AverageTable".MemAverage + 2)
+or 
+--Less than average by 2
+("MemCount".secnum = "AverageTable".secnum 
+and 
+"numMembers" > "AverageTable".MemAverage - 2
+);
+
+select teamname, secnum, coursenum, MemAverage from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
+group by teamname, secnum, coursenum) "MemCount" 
+natural join 
+(select coursenum, secnum, avg("numMembers") as "MemAverage"
+from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
+group by teamname, secnum, coursenum) "MemCount"
+group by coursenum, secnum) "AverageTable"
