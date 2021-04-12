@@ -583,42 +583,15 @@ order by t.depName, t.courseNum, t.secNum, t.teamName;
 
 -- Query 3: Produce a report that shows all the teams whose number of students is > 2
 -- higher or lower than the average number of students in the teams within that particular section.
---Count all the team member within 1 team per section
-select teamname, secnum, count(teamname) as "numMembers" from enrollment
-group by teamname, secnum;
 
-select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
-group by teamname, secnum, coursenum;
-
---calculate the average number of team members CS323 sec 08 avg = 4
-select coursenum, secnum, avg("numMembers") as "MemAverage"
-from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
-group by teamname, secnum, coursenum) "MemCount"
-group by coursenum, secnum;
-
---display students with in 2 team members of average
-select distinct teamname, "numMembers".secnum, "numMembers".coursenum from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
-group by teamname, secnum, coursenum) "MemCount", 
-(select coursenum, secnum, avg("numMembers") as "MemAverage"
-from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
-group by teamname, secnum, coursenum) "MemCount"
-group by coursenum, secnum) "AverageTable"
-where 
---More than average by 2
-("MemCount".secnum = "AverageTable".secnum 
-and
-"numMembers" < "AverageTable".MemAverage + 2)
-or 
---Less than average by 2
-("MemCount".secnum = "AverageTable".secnum 
-and 
-"numMembers" > "AverageTable".MemAverage - 2
-);
-
-select teamname, secnum, coursenum, MemAverage from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
-group by teamname, secnum, coursenum) "MemCount" 
-natural join 
-(select coursenum, secnum, avg("numMembers") as "MemAverage"
-from (select teamname, secnum, coursenum, count(teamname) as "numMembers" from enrollment
-group by teamname, secnum, coursenum) "MemCount"
-group by coursenum, secnum) "AverageTable"
+--Display all teams that have more than two or less than 2 members compare to the section average (Inclusive)
+select distinct teamname, MemCount.secnum, MemCount.coursenum, MemCount.numMembers, AverageTable.MemAverage from (select teamname, secnum, coursenum, count(teamname) as numMembers from enrollment
+group by teamname, secnum, coursenum) as MemCount
+inner join 
+(select coursenum, secnum, avg(numMembers) as MemAverage
+from (select teamname, secnum, coursenum, count(teamname) as numMembers from enrollment
+group by teamname, secnum, coursenum) as MemCount
+group by coursenum, secnum) as AverageTable
+on Memcount.courseNum = AverageTable.courseNum and Memcount.secnum = AverageTable.secnum
+where Memcount.numMembers <= (AverageTable.MemAverage + 2)
+and Memcount.numMembers >= (AverageTable.MemAverage - 2);
