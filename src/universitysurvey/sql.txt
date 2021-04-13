@@ -564,12 +564,14 @@ GROUP BY Students.STUDENTID, Students.FIRSTNAME, Students.LASTNAME, Enrollment.T
 
 -- Query 4: Report the average value that the student received from their peers for each rating dimension within a given course section.  
 -- Order by department, course number, student last name, student first name, and dimension text.
-SELECT Students.STUDENTID, Students.FIRSTNAME, Students.LASTNAME, Enrollment.TEAMNAME,DIMENSION.DINAME,DIMENSION.COURSENUM,DIMENSION.DEPNAME, AVG(surveyRating.RATING) AS averageRating FROM surveyRating
-INNER JOIN Students ON surveyRating.RATINGTARGET=Students.STUDENTID
-INNER JOIN Enrollment on Enrollment.STUDENTID=Students.STUDENTID
-INNER JOIN Dimension on surveyRating.DINAME = Dimension.DINAME
-GROUP BY Students.STUDENTID, Students.FIRSTNAME, Students.LASTNAME, Enrollment.TEAMNAME,DIMENSION.DINAME,DIMENSION.COURSENUM,DIMENSION.DEPNAME
-ORDER BY DIMENSION.DEPNAME, DIMENSION.COURSENUM,Students.LASTNAME, Students.FIRSTNAME,DIMENSION.DINAME;
+SELECT Students.STUDENTID, Students.FIRSTNAME, Students.LASTNAME, Enrollment.TEAMNAME,DIMENSION.DINAME,ENROLLMENT.COURSENUM,ENROLLMENT.DEPNAME,
+AVG(surveyRating.RATING) AS averageRating
+FROM surveyRating
+    INNER JOIN Students ON surveyRating.RATINGTARGET=Students.STUDENTID and surveyRating.RATINGTARGET<>surveyRating.STUDENTID
+        INNER JOIN Enrollment ON Enrollment.STUDENTID=Students.STUDENTID
+        INNER JOIN Dimension on Enrollment.secnum = Dimension.secnum 
+GROUP BY Students.STUDENTID, Students.FIRSTNAME, Students.LASTNAME, Enrollment.TEAMNAME,ENROLLMENT.COURSENUM,ENROLLMENT.DEPNAME,DIMENSION.DINAME
+ORDER BY ENROLLMENT.DEPNAME, ENROLLMENT.COURSENUM,Students.LASTNAME, Students.FIRSTNAME,DIMENSION.DINAME;
 
 -- Query 5: For each team, list the department name, the course name, the course units, the section number, the team name
 SELECT teamName as "Team Name", depName as "Department Name", courseName as "Course Name", courseUnits as "Course Units", secNum as "Section Name"
