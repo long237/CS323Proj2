@@ -595,5 +595,5 @@ from (select teamname, secnum, coursenum, count(teamname) as numMembers from enr
 group by teamname, secnum, coursenum) as MemCount
 group by coursenum, secnum) as AverageTable
 on Memcount.courseNum = AverageTable.courseNum and Memcount.secnum = AverageTable.secnum
-where Memcount.numMembers <= (AverageTable.MemAverage + 2)
-and Memcount.numMembers >= (AverageTable.MemAverage - 2);
+where Memcount.numMembers < (AverageTable.MemAverage + 2)
+and Memcount.numMembers > (AverageTable.MemAverage - 2);
